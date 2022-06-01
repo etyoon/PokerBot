@@ -15,17 +15,23 @@ class Poker:
 
     def suits_and_numbers(self):
         '''
-        given a five card hand determines number of cards and suits
+        given a seven card hand determines number of cards with same suit
+        and or number
         '''
 
         for card in self.hand:
             self.num[card % 13]=self.num.get(card % 13, 0) + 1
             self.suit[card // 13]=self.suit.get(card // 13, 0) + 1
 
-    def what_hand(self):
-        for nums in self.num:
-            if 
+    def determine_hand(self):
+        '''
+        given a seven card hand determines highest hand
+        '''
 
-test = Poker([5, 5+ 13, 2])
+        
+
+
+test = Poker([1,2,3,4,5])
 test.suits_and_numbers()
 print(test.num)
+print(test.suit)
