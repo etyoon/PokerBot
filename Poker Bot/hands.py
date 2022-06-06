@@ -2,12 +2,6 @@ import random
 
 class Poker:
 
-    deck = [i for i in range(52)]
-
-    random.seed(5)
-
-    random.shuffle(deck)
-
     def __init__(self, hand):
         self.hand = hand
         self.suit = {}
@@ -23,6 +17,22 @@ class Poker:
             self.num[card % 13]=self.num.get(card % 13, 0) + 1
             self.suit[card // 13]=self.suit.get(card // 13, 0) + 1
 
+    def is_straight(self, hand):
+        '''
+        deteremines if there is a straight on the board
+        hand: lst of numbers on the board
+        '''
+        straight = None
+        if len(hand) >= 5:
+            for i in range(3):
+                lst = hand[i:5 + i]
+                lst = sorted(lst)
+                if lst == list(range(min(lst), max(lst) + 1)):
+                    if straight == None or straight < lst[-1]:
+                        straight = lst[-1]
+        return straight
+
+
     def determine_hand(self):
         '''
         given a seven card hand determines highest hand
@@ -32,6 +42,8 @@ class Poker:
         for keys in self.suit.keys():
             if self.suit[keys] >= 5:
                 flush = True
+                suit = keys
+                print(suit)
 
         best_pair = None
         best_trip = None
@@ -54,27 +66,24 @@ class Poker:
         num_lst = []
         for keys in self.num.keys():
             num_lst.append(keys)
-        if len(num_lst) >= 5:
-            for i in range(2):
-                lst = num_lst[i:5 + i]
-                lst = sorted(lst)
-                if lst == list(range(min(lst), max(lst) + 1)):
-                    if straight == None or straight < lst[-1]:
-                        straight = lst[-1]
+        straight = self.is_straight(num_lst)
 
-        if flush and straight != None:
-            if straight % 13 == 13:
-                return("Royal Flush", straight)
-                print(1)
+
+        if flush:
+            nums = [i for i in self.hand if i // 13 == suit]
+            print(nums)
+            straight_flush = self.is_straight(nums)
+            if straight_flush != None:
+                if straight_flush % 13 == 12:
+                    return("Royal Flush")
+                else:
+                    return("Straight Flush", straight_flush)
             else:
-                return("Straight Flush", straight)
+                return("Flush", nums)
         elif best_quad != None:
             return("Four of a Kind", best_quad)
         elif best_full_house != None:
             return("Full House", best_full_house)
-        elif flush:
-            return("Flush")
-            #have to find way to hold on flush cards to determine higher flush
         elif straight != None:
             return("Straight", straight)
         elif best_trip != None:
@@ -82,16 +91,14 @@ class Poker:
         elif best_pair != None:
             return("Two Pair", best_pair)
         else:
-            return("Highcard", max(lst))
+            return("Highcard", max(num_lst))
 
 
 
 
 
-
-
-test = Poker([13, 12, 11, 10, 9, 8])
+test = Poker([13, 12, 5, 10, 9, 8, 3])
 test.suits_and_numbers()
 print(test.num)
 print(test.suit)
-test.determine_hand()
+print(test.determine_hand())
