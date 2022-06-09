@@ -1,4 +1,8 @@
 import random
+from cards import Dealer
+'''
+12, 25, 38, 51 is mapped ace
+'''
 
 class Poker:
 
@@ -91,14 +95,37 @@ class Poker:
         elif best_pair != None:
             return("Two Pair", best_pair)
         else:
-            return("Highcard", max(num_lst))
+            if min(num_lst) % 13 == 0:
+                return("Highcard", min(num_lst))
+            else:
+                return("Highcard", max(num_lst))
 
 
 
 
+test = Dealer()
+test.deal()
+test.river()
+test.flop()
+test.turn()
+print(test.hand)
+trial = Poker(test.hand)
+trial.suits_and_numbers()
+print(trial.num)
+print(trial.suit)
+print(trial.determine_hand())
+print(13 // 13)
 
-test = Poker([13, 12, 5, 10, 9, 8, 3])
-test.suits_and_numbers()
-print(test.num)
-print(test.suit)
-print(test.determine_hand())
+0 2
+1 3
+2 4
+3 5
+4 6
+5 7
+6 8
+7 9
+8 10
+9 J
+10 Q
+11 K
+12 A
