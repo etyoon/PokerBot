@@ -1,7 +1,7 @@
 import random
 from cards import Dealer
 '''
-12, 25, 38, 51 is mapped ace
+
 '''
 
 class Poker:
@@ -34,6 +34,10 @@ class Poker:
                 if lst == list(range(min(lst), max(lst) + 1)):
                     if straight == None or straight < lst[-1]:
                         straight = lst[-1]
+                elif lst[:4] == [0, 1, 2, 3]:
+                    if 12 in hand:
+                        if straight == None:
+                            straight = lst[3]
         return straight
 
 
@@ -47,7 +51,6 @@ class Poker:
             if self.suit[keys] >= 5:
                 flush = True
                 suit = keys
-                print(suit)
 
         best_pair = None
         best_trip = None
@@ -75,7 +78,6 @@ class Poker:
 
         if flush:
             nums = [i for i in self.hand if i // 13 == suit]
-            print(nums)
             straight_flush = self.is_straight(nums)
             if straight_flush != None:
                 if straight_flush % 13 == 12:
@@ -100,9 +102,6 @@ class Poker:
             else:
                 return("Highcard", max(num_lst))
 
-
-
-
 test = Dealer()
 test.deal()
 test.river()
@@ -115,17 +114,3 @@ print(trial.num)
 print(trial.suit)
 print(trial.determine_hand())
 print(13 // 13)
-
-0 2
-1 3
-2 4
-3 5
-4 6
-5 7
-6 8
-7 9
-8 10
-9 J
-10 Q
-11 K
-12 A
