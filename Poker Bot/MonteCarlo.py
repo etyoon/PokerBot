@@ -2,12 +2,15 @@ from hands import Poker
 import random
 from cards import Dealer
 
-simulation = Dealer()
-simulation.deal()
-simulation.hand
+start = Dealer()
+start.deal()
+start.hand
 for i in range(3):
-    simulation.deal()
-    simulation.river()
-    simulation.flop()
-    simulation.turn()
-    print(simulation.hand)
+    simulation = Dealer()
+    simulation.hand = start.hand
+    if start.river:
+        simulation.river()
+    if start.flop:
+        simulation.flop()
+    if start.turn:
+        simulation.turn()
