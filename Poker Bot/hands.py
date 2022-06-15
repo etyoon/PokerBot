@@ -97,10 +97,7 @@ class Poker:
         elif best_pair != None:
             return("Two Pair", best_pair)
         else:
-            if min(num_lst) % 13 == 0:
-                return("Highcard", min(num_lst))
-            else:
-                return("Highcard", max(num_lst))
+            return("Highcard", max(num_lst))
 
 test = Dealer()
 test.deal()
