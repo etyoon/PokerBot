@@ -6,7 +6,6 @@ start = Dealer()
 start.deal()
 start.hand
 for i in range(3):
-    simulation = Dealer()
     simulation.hand = start.hand
     if start.river:
         simulation.river()
@@ -14,3 +13,4 @@ for i in range(3):
         simulation.flop()
     if start.turn:
         simulation.turn()
+    simulation = Dealer()
