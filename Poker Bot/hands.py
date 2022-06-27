@@ -4,6 +4,17 @@ from cards import Dealer
 
 '''
 
+values = {}
+value_lst = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J','Q', 'K', 'A']
+key = 0
+for i in range(52):
+    values[i] = value_lst[key]
+    if key < 12:
+        key += 1
+    else:
+        key = 0
+print(values)
+
 class Poker:
 
     def __init__(self, hand):
@@ -32,8 +43,10 @@ class Poker:
                 lst = hand[i:5 + i]
                 lst = sorted(lst)
                 if lst == list(range(min(lst), max(lst) + 1)):
-                    if straight == None or straight < lst[-1]:
-                        straight = lst[-1]
+                    print(lst)
+                    if len(lst) == 5:
+                        if straight == None or straight < lst[-1]:
+                            straight = lst[-1]
                 elif lst[:4] == [0, 1, 2, 3]:
                     if 12 in hand:
                         if straight == None:
@@ -75,7 +88,7 @@ class Poker:
             num_lst.append(keys)
         straight = self.is_straight(num_lst)
 
-
+        rv = []
         if flush:
             nums = [i for i in self.hand if i // 13 == suit]
             straight_flush = self.is_straight(nums)
@@ -99,15 +112,10 @@ class Poker:
         else:
             return("Highcard", max(num_lst))
 
-test = Dealer()
-test.deal()
-test.river()
-test.flop()
-test.turn()
-print(test.hand)
-trial = Poker(test.hand)
+trial = Poker([1,2, 15,11,12])
 trial.suits_and_numbers()
-print(trial.num)
 print(trial.suit)
+print(trial.num)
 print(trial.determine_hand())
-print(13 // 13)
+keys = 2
+values.get(keys)
