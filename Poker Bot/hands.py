@@ -4,16 +4,15 @@ from cards import Dealer
 
 '''
 
-values = {}
+card = {}
 value_lst = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J','Q', 'K', 'A']
 key = 0
 for i in range(52):
-    values[i] = value_lst[key]
+    card[i] = value_lst[key]
     if key < 12:
         key += 1
     else:
         key = 0
-print(values)
 
 class Poker:
 
@@ -43,7 +42,6 @@ class Poker:
                 lst = hand[i:5 + i]
                 lst = sorted(lst)
                 if lst == list(range(min(lst), max(lst) + 1)):
-                    print(lst)
                     if len(lst) == 5:
                         if straight == None or straight < lst[-1]:
                             straight = lst[-1]
@@ -96,26 +94,32 @@ class Poker:
                 if straight_flush % 13 == 12:
                     return("Royal Flush")
                 else:
-                    return("Straight Flush", straight_flush)
+                    return("Straight Flush", card.get(straight_flush))
             else:
-                return("Flush", nums)
+                for i in nums:
+                    rv.append(card.get(i))
+                return ("Flush", rv)
         elif best_quad != None:
-            return("Four of a Kind", best_quad)
+            return("Four of a Kind", card.get(best_quad))
         elif best_full_house != None:
-            return("Full House", best_full_house)
+            full, house = best_full_house
+            return("Full House", (card.get(full), card.get(house)))
         elif straight != None:
-            return("Straight", straight)
+            return("Straight", card.get(straight))
         elif best_trip != None:
-            return("Three of a kind", best_trip)
+            return("Three of a kind", card.get(best_trip))
         elif best_pair != None:
-            return("Two Pair", best_pair)
+            return("Two Pair", card.get(best_pair))
         else:
-            return("Highcard", max(num_lst))
+            return("Highcard", card.get(max(num_lst)))
 
-trial = Poker([1,2, 15,11,12])
+test = Dealer()
+test.deal()
+test.river()
+test.flop()
+test.turn()
+trial = Poker(test.hand)
 trial.suits_and_numbers()
 print(trial.suit)
 print(trial.num)
 print(trial.determine_hand())
-keys = 2
-values.get(keys)
