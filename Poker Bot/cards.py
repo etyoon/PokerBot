@@ -7,7 +7,7 @@ class Dealer:
 
     def deal(self):
         for cards in range(2):
-            self.hand.append(choice([i for i in range(52)]))
+            self.hand.append(choice([i for i in range(52) if i not in self.hand]))
 
     def river(self):
         for cards in range(3):

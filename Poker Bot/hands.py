@@ -51,11 +51,19 @@ class Poker:
                             straight = lst[3]
         return straight
 
+    def repr_hand(self):
+        rv = []
+        for i in self.hand:
+            rv.append(card.get(i))
+        return(rv)
+
 
     def determine_hand(self):
         '''
         given a seven card hand determines highest hand
         '''
+        self.suits_and_numbers()
+
         flush = False
 
         for keys in self.suit.keys():
@@ -94,32 +102,20 @@ class Poker:
                 if straight_flush % 13 == 12:
                     return("Royal Flush")
                 else:
-                    return("Straight Flush", card.get(straight_flush))
+                    return("Straight Flush", straight_flush)
             else:
                 for i in nums:
-                    rv.append(card.get(i))
+                    rv.append(i)
                 return ("Flush", rv)
         elif best_quad != None:
-            return("Four of a Kind", card.get(best_quad))
+            return("Four of a Kind", best_quad)
         elif best_full_house != None:
-            full, house = best_full_house
-            return("Full House", (card.get(full), card.get(house)))
+            return("Full House", best_full_house)
         elif straight != None:
-            return("Straight", card.get(straight))
+            return("Straight", straight)
         elif best_trip != None:
-            return("Three of a kind", card.get(best_trip))
+            return("Three of a kind", best_trip)
         elif best_pair != None:
-            return("Two Pair", card.get(best_pair))
+            return("Two Pair", best_pair)
         else:
-            return("Highcard", card.get(max(num_lst)))
-
-test = Dealer()
-test.deal()
-test.river()
-test.flop()
-test.turn()
-trial = Poker(test.hand)
-trial.suits_and_numbers()
-print(trial.suit)
-print(trial.num)
-print(trial.determine_hand())
+            return("Highcard", max(num_lst))
